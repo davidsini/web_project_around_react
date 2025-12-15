@@ -4,7 +4,7 @@ function Header() {
   return (
     <header className="header">
       <img
-        src="./images/logo.svg"
+        src="/public/images/logo.svg"
         alt="logo con inscripción 'around the U.S.'"
         className="header__logo"
       />

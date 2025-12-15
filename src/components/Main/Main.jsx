@@ -8,7 +8,7 @@ function Main() {
           <div className="profile__avatar-wrapper">
             <img
               className="profile__picture"
-              src="/images/avatar.png"
+              src="/public/images/avatar.png"
               alt="Imagen de perfil del usuario"
             />
             <div className="profile__avatar-overlay"></div>
@@ -17,7 +17,7 @@ function Main() {
             <div className="profile__info">
               <h1 className="profile__name">Jacques Cousteau</h1>
               <img
-                src="/images/edit-button.svg"
+                src="/public/images/edit-button.svg"
                 className="profile__edit-button"
                 alt="botón de edición"
               />
@@ -26,7 +26,7 @@ function Main() {
           </div>
         </div>
         <button className="profile__add-button" type="button">
-          <img src="/images/add-button.svg" alt="botón agregar" />
+          <img src="/public/images/add-button.svg" alt="botón agregar" />
         </button>
       </div>
     </section>

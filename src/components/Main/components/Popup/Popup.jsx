@@ -9,7 +9,7 @@ export default function Popup(props) {
           type="button"
         />
         <div className="popup__form-container">
-          <h3 className="form__description">{title}</h3>
+          <h3 className="popup__title">{title}</h3>
           {children}
         </div>
       </div>
