@@ -4,9 +4,10 @@ export default function Popup(props) {
   return (
     <div className="popup popup_opened">
       <div className="popup__background" onClick={onClose} />
+
       <div
         className={`popup__content ${
-          !title ? "popup__content_content_image" : ""
+          title ? "popup__form-container" : "popup__content_content_image"
         }`}>
         <button
           aria-label="Close modal"
