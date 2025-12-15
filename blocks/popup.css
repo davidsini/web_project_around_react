@@ -7,9 +7,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  visibility: hidden;
+  /* visibility: hidden;
   opacity: 0;
-  transition: visibility 0s, opacity 0.3s linear;
+  transition: visibility 0s, opacity 0.3s linear; */
 }
 
 .popup__opened {
@@ -44,7 +44,7 @@
   box-sizing: border-box;
 }
 
-.popup__close-button {
+.popup__close {
   position: absolute;
   top: -40px;
   right: -40px;
@@ -58,7 +58,7 @@
   transition: opacity 0.3s;
 }
 
-.popup__close-button:hover {
+.popup__close:hover {
   opacity: 0.6;
 }
 .popup__title {
@@ -132,7 +132,7 @@
     padding: 25px 22px;
   }
 
-  .popup__close-button {
+  .popup__close {
     top: -36px;
     right: 0;
     width: 20px;
