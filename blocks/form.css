@@ -11,35 +11,6 @@
   font-size: 24px;
 }
 
-.popup__form {
-  display: flex;
-  flex-direction: column;
-  gap: 17px;
-}
-
-.popup__button {
-  height: 50px;
-  width: 100%;
-  background-color: black;
-  border: none;
-  border-radius: 4px;
-  color: white;
-}
-
-.popup__button:hover {
-  cursor: pointer;
-  background-color: #313131;
-  border: none;
-}
-
-.popup__button_inactive {
-  background-color: white;
-  border: none;
-  border-radius: 4px;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  color: #cccccc;
-}
-
 @media screen and (max-width: 880px) {
   .form__description {
     font-size: 20px;

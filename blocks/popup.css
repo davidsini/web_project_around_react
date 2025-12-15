@@ -74,6 +74,37 @@
   border-bottom: 2px solid rgba(255, 0, 0, 1);
 }
 
+.popup__form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  width: 100%;
+}
+
+.popup__button {
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 18px;
+}
+
+.popup__button:hover {
+  cursor: pointer;
+  background-color: #313131;
+  border: none;
+}
+
+.popup__button_inactive {
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  color: #cccccc;
+}
+
 .popup__input-error_active {
   opacity: 1;
   color: rgba(255, 0, 0, 1);
@@ -96,5 +127,11 @@
 
   .popup__input {
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .popup__form {
+    gap: 10px;
   }
 }
