@@ -52,14 +52,14 @@ export default function Main() {
   };
 
   return (
-    <main className="content">
+    <section className="content">
       <section className="profile">
         <div className="profile__main-container">
           <div className="profile__data">
             <div className="profile__avatar-wrapper">
               <img
                 className="profile__picture"
-                src="/public/images/avatar.png"
+                src="/images/avatar.png"
                 alt="Imagen de perfil del usuario"
               />
               <div
@@ -70,7 +70,7 @@ export default function Main() {
               <div className="profile__info">
                 <h1 className="profile__name">Jacques Cousteau</h1>
                 <img
-                  src="/public/images/edit-button.svg"
+                  src="/images/edit-button.svg"
                   className="profile__edit-button"
                   alt="botón de edición"
                   onClick={() => handleOpenPopup(editProfilePopup)}
@@ -101,6 +101,6 @@ export default function Main() {
           {popup.children}
         </Popup>
       )}
-    </main>
+    </section>
   );
 }

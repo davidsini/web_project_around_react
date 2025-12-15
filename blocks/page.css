@@ -3,6 +3,10 @@
   margin: 30px auto;
 }
 
+.content {
+  width: 100%;
+}
+
 html {
   background-color: black;
   font-family: "Inter";
