@@ -1,0 +1,27 @@
+.page__main-container {
+  max-width: 880px;
+  margin: 30px auto;
+}
+
+html {
+  background-color: black;
+  font-family: "Inter";
+  color: white;
+}
+
+.page {
+  background-color: black;
+  padding: 45px 0px 0px;
+}
+
+@media (max-width: 320px) {
+  .page__main-container {
+    max-width: 282px;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .page__main-container {
+    max-width: 95%;
+  }
+}
