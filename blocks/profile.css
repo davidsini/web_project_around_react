@@ -57,10 +57,12 @@
 
 .profile__edit-button {
   max-width: 24px;
+  background-image: url("/images/edit-button.svg");
 }
 
 .profile__edit-button:hover {
   cursor: pointer;
+  background-image: url("/images/add-button.svg");
 }
 
 .profile__name {

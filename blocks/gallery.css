@@ -77,7 +77,7 @@
   right: 15px;
   width: 18px;
   height: 19px;
-  background: url("/public/images/Trash.svg") no-repeat center center;
+  background: url("/images/Trash.svg") no-repeat center center;
   background-color: transparent;
   border: none;
   cursor: pointer;
