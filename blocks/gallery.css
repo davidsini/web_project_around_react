@@ -1,30 +1,32 @@
-.gallery {
+.cards__list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 17px;
   row-gap: 21px;
+  list-style: none;
+  padding: 0;
 }
 
-.gallery__card {
+.card {
   max-width: 282px;
   height: 361px;
   overflow: hidden;
   border-radius: 20px;
   position: relative;
-  list-style: none;
+  background-color: white;
 }
 
-.gallery__card:hover {
+.card:hover {
   cursor: pointer;
 }
 
-.gallery__card-image {
+.card__image {
   width: 100%;
-  height: 100%;
+  height: 282px;
   object-fit: cover;
 }
 
-.gallery__card-info {
+.card__description {
   position: absolute;
   bottom: 0px;
   width: 100%;
@@ -36,7 +38,7 @@
   box-sizing: border-box;
 }
 
-.gallery__card-title {
+.card__title {
   font-weight: 900;
   font-size: 24px;
   color: black;
@@ -44,53 +46,61 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin: 0;
 }
 
-.gallery__card-like-button {
+.card__like-button {
   width: 24px;
   height: 24px;
-  background: url("../images/heart.svg") no-repeat center center;
+  background: url("/public/images/heart.svg") no-repeat center center;
   background-size: contain;
   border: none;
   outline: none;
   cursor: pointer;
   padding: 0;
   flex-shrink: 0;
+  background-color: transparent;
 }
 
-.gallery__card-like-button:hover {
+.card__like-button:hover {
   opacity: 50%;
 }
 
-.gallery__card-like-button--clicked {
-  background: url("../images/dark-heart.svg") no-repeat center center;
+.card__like-button--clicked {
+  background: url("/public/images/dark-heart.svg") no-repeat center center;
 }
 
-.gallery__trash-button {
+.card__delete-button {
   position: absolute;
   z-index: 1;
   top: 18px;
   right: 15px;
+  width: 18px;
+  height: 19px;
+  background: url("/public/images/Trash.svg") no-repeat center center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
-.gallery__trash-button:hover {
+.card__delete-button:hover {
   opacity: 60%;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 880px) {
-  .gallery {
+  .cards__list {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
 
-  .gallery__card {
+  .card {
     max-width: 100%;
   }
 }
 
 @media (max-width: 320px) {
-  .gallery {
+  .cards__list {
     grid-template-columns: 1fr;
     gap: 20px;
     max-width: 90%;
