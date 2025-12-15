@@ -59,7 +59,7 @@ export default function Main() {
             <div className="profile__avatar-wrapper">
               <img
                 className="profile__picture"
-                src="/images/avatar.png"
+                src="/images/avatar_2.jpeg"
                 alt="Imagen de perfil del usuario"
               />
               <div
@@ -68,7 +68,7 @@ export default function Main() {
             </div>
             <div className="profile__info-w-button">
               <div className="profile__info">
-                <h1 className="profile__name">Jacques Cousteau</h1>
+                <h1 className="profile__name">Tu Nombre</h1>
                 <img
                   src="/images/edit-button.svg"
                   className="profile__edit-button"
@@ -76,7 +76,7 @@ export default function Main() {
                   onClick={() => handleOpenPopup(editProfilePopup)}
                 />
               </div>
-              <p className="profile__occupation">Explorador</p>
+              <p className="profile__occupation">Ocupación</p>
             </div>
           </div>
 
