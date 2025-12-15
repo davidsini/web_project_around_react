@@ -1,8 +1,22 @@
 import React from "react";
+import { useState } from "react";
+import Popup from "./Popup";
 
-function Main() {
+export default function Main() {
+  const [popup, setPopup] = useState(null);
+
+  const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
+
+  function handleOpenPopup(popup) {
+    setPopup(popup);
+  }
+
+  const handleClosePopup = () => {
+    setPopup(null);
+  };
+
   return (
-    <section className="profile">
+    <main className="profile">
       <div className="profile__main-container">
         <div className="profile__data">
           <div className="profile__avatar-wrapper">
@@ -25,12 +39,19 @@ function Main() {
             <p className="profile__occupation">Explorador</p>
           </div>
         </div>
-        <button className="profile__add-button" type="button">
-          <img src="/public/images/add-button.svg" alt="botón agregar" />
-        </button>
+        <button
+          aria-label="Add card"
+          className="profile__add-button"
+          type="button"
+          onClick={() => handleOpenPopup(newCardPopup)}
+        />
       </div>
-    </section>
+
+      {popup && (
+        <Popup onClose={handleClosePopup} title={popup.title}>
+          {popup.children}
+        </Popup>
+      )}
+    </main>
   );
 }
-
-export default Main;
