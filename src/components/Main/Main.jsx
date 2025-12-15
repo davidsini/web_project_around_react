@@ -4,7 +4,6 @@ import Popup from "./components/Popup/Popup.jsx";
 import NewCard from "../form/NewCard/NewCard.jsx";
 import EditProfile from "../form/EditProfile/EditProfile.jsx";
 import EditAvatar from "../form/EditAvatar/EditAvatar.jsx";
-
 import Card from "./components/Card/Card.jsx";
 
 const cards = [
@@ -93,7 +92,7 @@ export default function Main() {
       <section className="cards">
         <ul className="cards__list">
           {cards.map((card) => (
-            <Card key={card._id} card={card} />
+            <Card key={card._id} card={card} onCardClick={handleOpenPopup} />
           ))}
         </ul>
       </section>
