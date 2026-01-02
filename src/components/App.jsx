@@ -13,7 +13,7 @@ const App = () => {
     api
       .getInitialCards()
       .then((data) => {
-        console.log("Datos recibidos de cards:", data);
+        console.log("Datos recibidos de cards: (prueba)", data);
         setCards(data);
       })
       .catch((error) => console.error(error));
@@ -27,7 +27,8 @@ const App = () => {
   }, []);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const likes = card.likes || [];
+    const isLiked = likes.some((i) => i._id === currentUser._id);
 
     api
       .changeLikeCardStatus(card._id, !isLiked)
@@ -36,7 +37,7 @@ const App = () => {
           state.map((c) => (c._id === card._id ? newCard : c))
         );
       })
-      .catch(console.error);
+      .catch((error) => console.error(error));
   }
 
   function handleCardDelete(card) {

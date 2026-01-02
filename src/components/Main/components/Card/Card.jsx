@@ -4,22 +4,18 @@ import { CurrentUserContext } from "../../../../context/CurrentUserContext";
 export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  // 1. Extraemos los datos con valores por defecto para evitar el error de 'undefined'
-  // Si card.likes no existe, usamos un array vacío []
   const { name, link, owner = {}, likes = [], _id } = card;
 
-  // 2. Verificamos si somos los dueños (usando encadenamiento opcional ?. por seguridad)
   const isOwn = owner._id === currentUser._id;
 
   const cardDeleteButtonClassName = `card__delete-button ${
     isOwn ? "card__delete-button_visible" : "card__delete-button_hidden"
   }`;
 
-  // 3. Verificamos si le dimos like (aquí es donde fallaba el .some)
   const isLiked = likes.some((user) => user._id === currentUser._id);
 
   const cardLikeButtonClassName = `card__like-button ${
-    isLiked ? "card__like-button_is-active" : ""
+    isLiked ? "card__like-button--clicked" : ""
   }`;
 
   function handleLikeClick() {

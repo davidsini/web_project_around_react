@@ -9,7 +9,6 @@ import api from "../../utils/api.js";
 import { CurrentUserContext } from "../../context/CurrentUserContext.js";
 
 export default function Main({ cards, onCardLike, onCardDelete }) {
-  // props
   const { currentUser } = useContext(CurrentUserContext);
   const [popup, setPopup] = useState(null);
 
