@@ -4,7 +4,6 @@ class Api {
     this._headers = options.headers;
   }
 
-  // este es para no repetir código, no sé si esté bien hacer esto
   _checkResponse(res) {
     if (res.ok) {
       return res.json();

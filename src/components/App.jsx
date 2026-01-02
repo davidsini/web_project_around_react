@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Header from "../Header/Header.jsx";
+import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import Footer from "./Footer/Footer.jsx";
-import Popup from "./Main/components/Popup/Popup.jsx"; // Para formularios
-import ImagePopup from "./Main/components/Popup/ImagePopup.jsx"; // Para imágenes
+import Popup from "./Main/components/Popup/Popup.jsx";
+import ImagePopup from "./Main/components/Popup/ImagePopup.jsx";
 import EditProfile from "./form/EditProfile/EditProfile.jsx";
 import NewCard from "./form/NewCard/NewCard.jsx";
 import EditAvatar from "./form/EditAvatar/EditAvatar.jsx";
@@ -23,19 +23,16 @@ export default function App() {
       .catch(console.error);
   }, []);
 
-  // 1. Estados para controlar la visibilidad de los popups
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
 
-  // 2. Controladores de apertura
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
   const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
   const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
   const handleCardClick = (card) => setSelectedCard(card);
 
-  // 3. Función  para cerrar todos los popups
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -43,7 +40,6 @@ export default function App() {
     setSelectedCard(null);
   };
 
-  // 4. Actualizar usuario y cerrar el popup al tener éxito
   const handleUpdateUser = (data) => {
     api
       .setUserInfo(data)
@@ -129,7 +125,7 @@ export default function App() {
         />
         <Footer />
 
-        {/* Popup Editar Perfil */}
+        {/* Popup editar perfil */}
         {isEditProfilePopupOpen && (
           <Popup
             title="Editar perfil"
@@ -139,13 +135,13 @@ export default function App() {
           </Popup>
         )}
 
-        {/* Popup Nueva Tarjeta */}
+        {/* Popup nueva tarjeta */}
         {isAddPlacePopupOpen && (
           <Popup title="Nuevo lugar" onClose={closeAllPopups}>
             <NewCard />
           </Popup>
         )}
-        {/* Popup Editar Avatar */}
+        {/* Popup editar aavatar */}
         {isEditAvatarPopupOpen && (
           <Popup title="Cambiar foto de perfil" onClose={closeAllPopups}>
             <EditAvatar />
@@ -155,8 +151,6 @@ export default function App() {
         {selectedCard && (
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         )}
-
-        {/* Usarás componentes específicos como EditProfile, NewCard, etc. */}
       </div>
     </CurrentUserContext.Provider>
   );
