@@ -75,13 +75,13 @@ export default function App() {
   };
 
   const handleCardLike = (card) => {
-    const likes = card.likes || [];
+    const isLiked = card.likes.some((user) => user._id === currentUser._id);
 
-    const isLiked = likes.some((user) => user._id === currentUser._id);
+    const likeRequest = isLiked
+      ? api.removeLike(card._id)
+      : api.addLike(card._id);
 
-    const request = isLiked ? api.removeLike(card._id) : api.addLike(card._id);
-
-    request
+    likeRequest
       .then(() => {
         setCards((state) =>
           state.map((c) => {
@@ -91,7 +91,7 @@ export default function App() {
               ...c,
               likes: isLiked
                 ? c.likes.filter((u) => u._id !== currentUser._id)
-                : [...likes, { _id: currentUser._id }],
+                : [...c.likes, { _id: currentUser._id }],
             };
           })
         );

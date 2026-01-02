@@ -23,8 +23,8 @@ html {
 }
 
 .page__content {
-  max-width: 880px; /* El ancho estándar de tu proyecto */
-  margin: 0 auto; /* Esto centra todo el bloque */
+  max-width: 880px;
+  margin: 0 auto;
   width: 100%;
 }
 
