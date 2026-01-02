@@ -68,6 +68,10 @@
 .profile__name {
   font-weight: 500;
   font-size: 42px;
+  max-width: 80%;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  overflow: hidden;
 }
 
 .profile__occupation {
@@ -88,7 +92,7 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: flex-start;
-  gap: 16px;
+  gap: 6px;
 }
 
 .profile__add-button {
@@ -122,14 +126,6 @@
 
   .profile__main-container {
     gap: 36px;
-  }
-
-  .profile__name {
-    font-size: 32px;
-    max-width: 80%;
-    text-overflow: ellipsis;
-    white-space: wrap;
-    overflow: hidden;
   }
 
   .profile__occupation {

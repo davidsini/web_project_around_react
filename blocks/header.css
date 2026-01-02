@@ -5,6 +5,8 @@
   justify-content: space-between;
   margin: auto;
   max-width: 880px;
+  padding: 40px 0 0;
+  box-sizing: content-box;
 }
 
 .header__logo {

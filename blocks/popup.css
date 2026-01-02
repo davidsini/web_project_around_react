@@ -42,11 +42,12 @@
   gap: 23px;
   box-sizing: border-box;
   z-index: 2;
+  position: relative;
 }
 
 .popup__close {
   position: absolute;
-  top: -40px;
+  top: -40px; /* Lo sube por encima del recuadro */
   right: -40px;
   width: 32px;
   height: 32px;
@@ -144,7 +145,7 @@
 
   .popup__close {
     top: -36px;
-    right: 0;
+    right: 0; /* En móvil suele ir alineado al borde derecho */
     width: 20px;
     height: 20px;
   }
