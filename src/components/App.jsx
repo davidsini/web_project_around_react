@@ -8,7 +8,7 @@ import EditProfile from "./form/EditProfile/EditProfile.jsx";
 import NewCard from "./form/NewCard/NewCard.jsx";
 import EditAvatar from "./form/EditAvatar/EditAvatar.jsx";
 import api from "../utils/api.js";
-import { CurrentUserContext } from "../context/CurrentUserContext.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 export default function App() {
   const [cards, setCards] = useState([]);
@@ -46,7 +46,7 @@ export default function App() {
   // 4. Actualizar usuario y cerrar el popup al tener éxito
   const handleUpdateUser = (data) => {
     api
-      .editUserInfo(data)
+      .setUserInfo(data)
       .then((newData) => {
         setCurrentUser(newData);
         closeAllPopups();
@@ -56,7 +56,7 @@ export default function App() {
 
   const handleUpdateAvatar = (data) => {
     api
-      .updateUserAvatar(data)
+      .setUserAvatar(data)
       .then((newData) => {
         setCurrentUser(newData);
         closeAllPopups();
@@ -75,20 +75,23 @@ export default function App() {
   };
 
   const handleCardLike = (card) => {
-    // Verifica si ya le dimos like
-    const isLiked = card.likes.some(
+    // 1. Usamos el encadenamiento opcional (?.) y un valor por defecto ([]) para evitar el error de 'undefined'
+    const isLiked = (card.likes || []).some(
       (i) => i === currentUser._id || i?._id === currentUser._id
     );
 
-    // Envía la petición a la API y actualiza el estado local
+    // 2. Enviamos el estado ACTUAL (isLiked) a la API para que ella sepa si debe dar LIKE o UNLIKE
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
+        // 3. Actualizamos el estado global con la tarjeta que nos devuelve el servidor
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Error al procesar el like:", error);
+      });
   };
 
   const handleCardDelete = (card) => {

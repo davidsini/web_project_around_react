@@ -1,6 +1,5 @@
-// src/components/form/EditAvatar/EditAvatar.jsx
 import { useRef, useContext } from "react";
-import { CurrentUserContext } from "../../../context/CurrentUserContext.js";
+import { CurrentUserContext } from "../../../contexts/CurrentUserContext.js";
 
 export default function EditAvatar() {
   const avatarRef = useRef();

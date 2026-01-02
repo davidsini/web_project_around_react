@@ -6,7 +6,7 @@ import EditProfile from "../form/EditProfile/EditProfile.jsx";
 import EditAvatar from "../form/EditAvatar/EditAvatar.jsx";
 import Card from "./components/Card/Card.jsx";
 import api from "../../utils/api.js";
-import { CurrentUserContext } from "../../context/CurrentUserContext.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 export default function Main({
   cards,

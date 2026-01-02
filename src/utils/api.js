@@ -27,7 +27,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  editUserInfo(userData) {
+  setUserInfo(userData) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -70,7 +70,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  updateUserAvatar(avatarData) {
+  setUserAvatar(avatarData) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
