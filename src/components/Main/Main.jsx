@@ -9,7 +9,7 @@ import api from "../../utils/api.js";
 import { CurrentUserContext } from "../../context/CurrentUserContext.js";
 
 export default function Main() {
-  const [cards, setCards] = useState({});
+  const [cards, setCards] = useState([]);
   const { currentUser } = useContext(CurrentUserContext);
 
   async function handleCardLike(card) {

@@ -5,7 +5,7 @@ import Footer from "../components/Footer/Footer.jsx";
 import { CurrentUserContext } from "../context/CurrentUserContext.js";
 
 const ProfileSection = () => {
-  const [currentUser, setCurrentUser] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
   useEffect(() => {
     api
       .getUserInfo()
