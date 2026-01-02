@@ -5,7 +5,7 @@ import Footer from "./Footer/Footer.jsx";
 import { CurrentUserContext } from "../context/CurrentUserContext.js";
 import api from "../utils/api.js";
 
-const App = () => {
+export default function App() {
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
 
@@ -86,4 +86,4 @@ const App = () => {
       </div>
     </CurrentUserContext.Provider>
   );
-};
+}
