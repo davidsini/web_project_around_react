@@ -67,7 +67,7 @@
 }
 
 .card__like-button--clicked {
-  background: url("/images/dark-heart.svg") no-repeat center center;
+  background: url("../public/images/dark-heart.svg") no-repeat center center;
 }
 
 .card__delete-button {

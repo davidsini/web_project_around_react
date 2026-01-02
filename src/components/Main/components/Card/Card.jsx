@@ -2,7 +2,7 @@ export default function Card({ card, onCardClick, onCardLike }) {
   const { name, link, isLiked } = card;
 
   const cardLikeButtonClassName = `card__like-button ${
-    isLiked ? "card__like-button_is-active" : ""
+    isLiked ? "card__like-button--clicked" : ""
   }`;
 
   function handleLikeClick() {
