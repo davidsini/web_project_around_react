@@ -6,10 +6,10 @@ import EditProfile from "../form/EditProfile/EditProfile.jsx";
 import EditAvatar from "../form/EditAvatar/EditAvatar.jsx";
 import Card from "./components/Card/Card.jsx";
 import api from "../../utils/api.js";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import { CurrentUserContext } from "../../context/CurrentUserContext.js";
 
 export default function Main() {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState({});
   const { currentUser } = useContext(CurrentUserContext);
 
   async function handleCardLike(card) {
@@ -58,6 +58,7 @@ export default function Main() {
     api
       .getInitialCards()
       .then((data) => {
+        console.log("Datos recibidos de cards:", data);
         setCards(data);
       })
       .catch((error) => console.error(error));

@@ -80,7 +80,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://around-api.es.tripleten-services.com/v1/users/create",
+  baseUrl: "https://around-api.es.tripleten-services.com/v1",
   headers: {
     authorization: "0727e918-236a-4454-ba88-94aa79b3a1d2",
     "Content-Type": "application/json",
