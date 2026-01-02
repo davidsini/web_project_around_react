@@ -75,23 +75,28 @@ export default function App() {
   };
 
   const handleCardLike = (card) => {
-    // 1. Usamos el encadenamiento opcional (?.) y un valor por defecto ([]) para evitar el error de 'undefined'
-    const isLiked = (card.likes || []).some(
-      (i) => i === currentUser._id || i?._id === currentUser._id
-    );
+    const likes = card.likes || [];
 
-    // 2. Enviamos el estado ACTUAL (isLiked) a la API para que ella sepa si debe dar LIKE o UNLIKE
-    api
-      .changeLikeCardStatus(card._id, isLiked)
-      .then((newCard) => {
-        // 3. Actualizamos el estado global con la tarjeta que nos devuelve el servidor
+    const isLiked = likes.some((user) => user._id === currentUser._id);
+
+    const request = isLiked ? api.removeLike(card._id) : api.addLike(card._id);
+
+    request
+      .then(() => {
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
+          state.map((c) => {
+            if (c._id !== card._id) return c;
+
+            return {
+              ...c,
+              likes: isLiked
+                ? c.likes.filter((u) => u._id !== currentUser._id)
+                : [...likes, { _id: currentUser._id }],
+            };
+          })
         );
       })
-      .catch((error) => {
-        console.error("Error al procesar el like:", error);
-      });
+      .catch(console.error);
   };
 
   const handleCardDelete = (card) => {
