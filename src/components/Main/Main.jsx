@@ -1,31 +1,34 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Popup from "./components/Popup/Popup.jsx";
 import NewCard from "../form/NewCard/NewCard.jsx";
 import EditProfile from "../form/EditProfile/EditProfile.jsx";
 import EditAvatar from "../form/EditAvatar/EditAvatar.jsx";
 import Card from "./components/Card/Card.jsx";
-
-const cards = [
-  {
-    isLiked: false,
-    _id: "5d1f0611d321eb4bdcd707dd",
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:10:57.741Z",
-  },
-  {
-    isLiked: false,
-    _id: "5d1f064ed321eb4bdcd707de",
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:11:58.324Z",
-  },
-];
+import api from "../../utils/api.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 export default function Main() {
+  const [cards, setCards] = useState([]);
+  const { currentUser } = useContext(CurrentUserContext);
+
+  async function handleCardLike(card) {
+    const isLiked = card.likes.some((user) => user === currentUser._id);
+
+    let newCard;
+    if (isLiked) {
+      newCard = await api.removeLike(card._id);
+    } else {
+      newCard = await api.addLike(card._id);
+    }
+
+    const newCards = cards.map((c) => {
+      return c._id === card._id ? newCard : c;
+    });
+
+    setCards(newCards);
+  }
+
   const [popup, setPopup] = useState(null);
 
   const newCardPopup = {
@@ -51,6 +54,15 @@ export default function Main() {
     setPopup(null);
   };
 
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <section className="content">
       <section className="profile">
@@ -68,7 +80,7 @@ export default function Main() {
             </div>
             <div className="profile__info-w-button">
               <div className="profile__info">
-                <h1 className="profile__name">Tu Nombre</h1>
+                <h1 className="profile__name">{currentUser.name}</h1>
                 <img
                   src="/images/edit-button.svg"
                   className="profile__edit-button"
@@ -76,7 +88,7 @@ export default function Main() {
                   onClick={() => handleOpenPopup(editProfilePopup)}
                 />
               </div>
-              <p className="profile__occupation">Ocupación</p>
+              <p className="profile__occupation">{currentUser.about}</p>
             </div>
           </div>
 

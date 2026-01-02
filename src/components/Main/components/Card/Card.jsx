@@ -1,6 +1,13 @@
 import React from "react";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../../../context/CurrentUserContext";
 
 export default function Card(props) {
+  const { currentUser } = useContext(CurrentUserContext);
+  const isLiked = card.likes.some((user) => user._id === currentUser._id);
+  const cardLikeButtonClassName = `card__like-button ${
+    isLiked ? "card__like-button_is-active" : ""
+  }`;
   const { name, link } = props.card;
   const { onCardClick } = props;
 
@@ -34,7 +41,7 @@ export default function Card(props) {
         <button
           aria-label="Like card"
           type="button"
-          className="card__like-button"
+          className={cardLikeButtonClassName}
         />
       </div>
     </li>
