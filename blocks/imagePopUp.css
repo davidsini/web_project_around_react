@@ -4,6 +4,7 @@
   justify-content: center;
   gap: 10px;
   position: relative;
+  z-index: 2;
 }
 
 .imagePopUp__second-container {
@@ -28,8 +29,8 @@
   width: 40px;
   height: 40px;
   position: absolute;
-  top: -45px;
-  right: -45px;
+  top: -40px;
+  right: -40px;
 }
 
 .imagePopUp__close-button:hover {
@@ -38,9 +39,10 @@
 }
 
 .imagePopUp__title {
+  margin: 10px 0 0;
   font-size: 20px;
-  color: black;
-  font-weight: 200;
+  color: white;
+  font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

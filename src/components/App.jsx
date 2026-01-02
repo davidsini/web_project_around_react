@@ -120,12 +120,17 @@ export default function App() {
           onCardClick={handleCardClick}
         />
         <Footer />
+
         {/* Popup Editar Perfil */}
         {isEditProfilePopupOpen && (
-          <Popup title="Editar perfil" onClose={closeAllPopups}>
+          <Popup
+            title="Editar perfil"
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}>
             <EditProfile />
           </Popup>
         )}
+
         {/* Popup Nueva Tarjeta */}
         {isAddPlacePopupOpen && (
           <Popup title="Nuevo lugar" onClose={closeAllPopups}>
@@ -140,14 +145,7 @@ export default function App() {
         )}
         {/* App.jsx */}
         {selectedCard && (
-          <Popup name="image" onClose={closeAllPopups}>
-            <img
-              src={selectedCard.link}
-              alt={selectedCard.name}
-              className="popup__image"
-            />
-            <p className="popup__caption">{selectedCard.name}</p>
-          </Popup>
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         )}
 
         {/* Usarás componentes específicos como EditProfile, NewCard, etc. */}

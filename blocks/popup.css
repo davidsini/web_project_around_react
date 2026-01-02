@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
+  transition: visibility 0s, opacity 0.3s linear;
 }
 
 .popup__opened {
@@ -40,6 +41,7 @@
   flex-direction: column;
   gap: 23px;
   box-sizing: border-box;
+  z-index: 2;
 }
 
 .popup__close {
