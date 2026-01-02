@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import Popup from "./components/Popup/Popup.jsx";
+import Popup from "./Popup.jsx";
 import NewCard from "../form/NewCard/NewCard.jsx";
 import EditProfile from "../form/EditProfile/EditProfile.jsx";
 import EditAvatar from "../form/EditAvatar/EditAvatar.jsx";
