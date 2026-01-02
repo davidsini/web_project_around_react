@@ -2,12 +2,26 @@ import { useState, useEffect } from "react";
 import Header from "../Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import Footer from "./Footer/Footer.jsx";
-import { CurrentUserContext } from "../context/CurrentUserContext.js";
+import Popup from "./Main/components/Popup/Popup.jsx"; // Para formularios
+import ImagePopup from "./Main/components/Popup/ImagePopup.jsx"; // Para imágenes
+import EditProfile from "./form/EditProfile/EditProfile.jsx";
+import NewCard from "./form/NewCard/NewCard.jsx";
+import EditAvatar from "./form/EditAvatar/EditAvatar.jsx";
 import api from "../utils/api.js";
+import { CurrentUserContext } from "../context/CurrentUserContext.js";
 
 export default function App() {
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([userData, cardsData]) => {
+        setCurrentUser(userData);
+        setCards(cardsData);
+      })
+      .catch(console.error);
+  }, []);
 
   // 1. Estados para controlar la visibilidad de los popups
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -32,7 +46,7 @@ export default function App() {
   // 4. Actualizar usuario y cerrar el popup al tener éxito
   const handleUpdateUser = (data) => {
     api
-      .setUserInfo(data)
+      .editUserInfo(data)
       .then((newData) => {
         setCurrentUser(newData);
         closeAllPopups();
@@ -42,7 +56,7 @@ export default function App() {
 
   const handleUpdateAvatar = (data) => {
     api
-      .setUserAvatar(data)
+      .updateUserAvatar(data)
       .then((newData) => {
         setCurrentUser(newData);
         closeAllPopups();
@@ -52,10 +66,36 @@ export default function App() {
 
   const handleAddPlaceSubmit = (data) => {
     api
-      .addCard(data)
+      .addNewCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
+      })
+      .catch(console.error);
+  };
+
+  const handleCardLike = (card) => {
+    // Verifica si ya le dimos like
+    const isLiked = card.likes.some(
+      (i) => i === currentUser._id || i?._id === currentUser._id
+    );
+
+    // Envía la petición a la API y actualiza el estado local
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch(console.error);
+  };
+
+  const handleCardDelete = (card) => {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
       })
       .catch(console.error);
   };
@@ -80,8 +120,36 @@ export default function App() {
           onCardClick={handleCardClick}
         />
         <Footer />
+        {/* Popup Editar Perfil */}
+        {isEditProfilePopupOpen && (
+          <Popup title="Editar perfil" onClose={closeAllPopups}>
+            <EditProfile />
+          </Popup>
+        )}
+        {/* Popup Nueva Tarjeta */}
+        {isAddPlacePopupOpen && (
+          <Popup title="Nuevo lugar" onClose={closeAllPopups}>
+            <NewCard />
+          </Popup>
+        )}
+        {/* Popup Editar Avatar */}
+        {isEditAvatarPopupOpen && (
+          <Popup title="Cambiar foto de perfil" onClose={closeAllPopups}>
+            <EditAvatar />
+          </Popup>
+        )}
+        {/* App.jsx */}
+        {selectedCard && (
+          <Popup name="image" onClose={closeAllPopups}>
+            <img
+              src={selectedCard.link}
+              alt={selectedCard.name}
+              className="popup__image"
+            />
+            <p className="popup__caption">{selectedCard.name}</p>
+          </Popup>
+        )}
 
-        {/* 5. Renderiza los popups aquí basándote en los estados booleanos */}
         {/* Usarás componentes específicos como EditProfile, NewCard, etc. */}
       </div>
     </CurrentUserContext.Provider>
