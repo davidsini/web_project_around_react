@@ -12,21 +12,17 @@ export default function Main() {
   const [cards, setCards] = useState([]);
   const { currentUser } = useContext(CurrentUserContext);
 
-  async function handleCardLike(card) {
-    const isLiked = card.likes.some((user) => user === currentUser._id);
+  function handleCardLike(card) {
+    const isLiked = card.isLiked;
 
-    let newCard;
-    if (isLiked) {
-      newCard = await api.removeLike(card._id);
-    } else {
-      newCard = await api.addLike(card._id);
-    }
-
-    const newCards = cards.map((c) => {
-      return c._id === card._id ? newCard : c;
-    });
-
-    setCards(newCards);
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === newCard._id ? newCard : c))
+        );
+      })
+      .catch(console.error);
   }
 
   const [popup, setPopup] = useState(null);
@@ -105,7 +101,12 @@ export default function Main() {
       <section className="cards">
         <ul className="cards__list">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={handleOpenPopup} />
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={handleOpenPopup}
+              onCardLike={handleCardLike}
+            />
           ))}
         </ul>
       </section>
