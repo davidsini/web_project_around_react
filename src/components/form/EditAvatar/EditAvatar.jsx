@@ -1,19 +1,28 @@
-export default function EditAvatar() {
-  return (
-    <form className="popup__form" name="edit-avatar-form" noValidate>
-      <label className="popup__field">
-        <input
-          className="popup__input popup__input_type_url"
-          id="avatar-url-input"
-          type="url"
-          name="avatar"
-          placeholder="Enlace a la imagen de perfil"
-          required
-        />
-        <span className="popup__error" id="avatar-url-input-error"></span>
-      </label>
+// src/components/form/EditAvatar/EditAvatar.jsx
+import { useRef, useContext } from "react";
+import { CurrentUserContext } from "../../../context/CurrentUserContext.js";
 
-      <button className="button popup__button" type="submit">
+export default function EditAvatar() {
+  const avatarRef = useRef();
+  const { handleUpdateAvatar } = useContext(CurrentUserContext);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    handleUpdateAvatar({
+      avatar: avatarRef.current.value,
+    });
+  }
+
+  return (
+    <form className="popup__form" onSubmit={handleSubmit}>
+      <input
+        ref={avatarRef}
+        type="url"
+        className="popup__input"
+        placeholder="Enlace a la imagen"
+        required
+      />
+      <button type="submit" className="popup__button">
         Guardar
       </button>
     </form>

@@ -52,7 +52,7 @@
 .card__like-button {
   width: 24px;
   height: 24px;
-  background: url("/public/images/heart.svg") no-repeat center center;
+  background: url("/images/heart.svg") no-repeat center center;
   background-size: contain;
   border: none;
   outline: none;
@@ -67,7 +67,7 @@
 }
 
 .card__like-button_is-active {
-  background: url("/public/images/dark-heart.svg") no-repeat center center;
+  background: url("/images/dark-heart.svg") no-repeat center center;
 }
 
 .card__delete-button {

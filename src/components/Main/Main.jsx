@@ -8,32 +8,16 @@ import Card from "./components/Card/Card.jsx";
 import api from "../../utils/api.js";
 import { CurrentUserContext } from "../../context/CurrentUserContext.js";
 
-export default function Main({ cards, onCardLike, onCardDelete }) {
+export default function Main({
+  cards,
+  onCardLike,
+  onCardDelete,
+  onEditProfileClick,
+  onAddPlaceClick,
+  onEditAvatarClick,
+  onCardClick,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
-  const [popup, setPopup] = useState(null);
-
-  const newCardPopup = {
-    title: "Nuevo lugar",
-    children: <NewCard />,
-  };
-
-  const editProfilePopup = {
-    title: "Editar perfil",
-    children: <EditProfile />,
-  };
-
-  const editAvatarPopup = {
-    title: "Cambiar foto de perfil",
-    children: <EditAvatar />,
-  };
-
-  function handleOpenPopup(popupToOpen) {
-    setPopup(popupToOpen);
-  }
-
-  const handleClosePopup = () => {
-    setPopup(null);
-  };
 
   return (
     <section className="content">
@@ -44,11 +28,11 @@ export default function Main({ cards, onCardLike, onCardDelete }) {
               <img
                 className="profile__picture"
                 src={currentUser.avatar}
-                alt="Imagen de perfil"
+                alt="Perfil"
               />
               <div
                 className="profile__avatar-overlay"
-                onClick={() => handleOpenPopup(editAvatarPopup)}></div>
+                onClick={onEditAvatarClick}></div>
             </div>
             <div className="profile__info-w-button">
               <div className="profile__info">
@@ -56,41 +40,29 @@ export default function Main({ cards, onCardLike, onCardDelete }) {
                 <img
                   src="/images/edit-button.svg"
                   className="profile__edit-button"
-                  alt="editar"
-                  onClick={() => handleOpenPopup(editProfilePopup)}
+                  onClick={onEditProfileClick}
                 />
               </div>
               <p className="profile__occupation">{currentUser.about}</p>
             </div>
           </div>
-          <button
-            className="profile__add-button"
-            onClick={() => handleOpenPopup(newCardPopup)}
-          />
+          <button className="profile__add-button" onClick={onAddPlaceClick} />
         </div>
       </section>
 
-      {currentUser._id && (
-        <section className="cards">
-          <ul className="cards__list">
-            {cards.map((card) => (
-              <Card
-                key={card._id}
-                card={card}
-                onCardClick={handleOpenPopup}
-                onCardLike={onCardLike}
-                onCardDelete={onCardDelete}
-              />
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
-          {popup.children}
-        </Popup>
-      )}
+      <section className="cards">
+        <ul className="cards__list">
+          {cards.map((card) => (
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+            />
+          ))}
+        </ul>
+      </section>
     </section>
   );
 }

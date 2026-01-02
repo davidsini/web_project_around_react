@@ -9,71 +9,81 @@ const App = () => {
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
 
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        console.log("Datos recibidos de cards: (prueba)", data);
-        setCards(data);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+  // 1. Estados para controlar la visibilidad de los popups
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => setCurrentUser(data))
-      .catch((error) => console.error(error));
-  }, []);
+  // 2. Controladores de apertura
+  const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
+  const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
+  const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
+  const handleCardClick = (card) => setSelectedCard(card);
 
-  function handleCardLike(card) {
-    const likes = card.likes || [];
-    const isLiked = likes.some(
-      (like) => like === currentUser._id || like?._id === currentUser._id
-    );
+  // 3. Función  para cerrar todos los popups
+  const closeAllPopups = () => {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setSelectedCard(null);
+  };
 
-    api
-      .changeLikeCardStatus(card._id, isLiked)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      })
-      .catch(console.error);
-  }
-
-  function handleCardDelete(card) {
-    api
-      .deleteCard(card._id)
-      .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card._id));
-      })
-      .catch(console.error);
-  }
-
+  // 4. Actualizar usuario y cerrar el popup al tener éxito
   const handleUpdateUser = (data) => {
     api
       .setUserInfo(data)
       .then((newData) => {
         setCurrentUser(newData);
+        closeAllPopups();
+      })
+      .catch(console.error);
+  };
+
+  const handleUpdateAvatar = (data) => {
+    api
+      .setUserAvatar(data)
+      .then((newData) => {
+        setCurrentUser(newData);
+        closeAllPopups();
+      })
+      .catch(console.error);
+  };
+
+  const handleAddPlaceSubmit = (data) => {
+    api
+      .addCard(data)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch(console.error);
   };
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+    <CurrentUserContext.Provider
+      value={{
+        currentUser,
+        handleUpdateUser,
+        handleUpdateAvatar,
+        handleAddPlaceSubmit,
+      }}>
       <div className="page__content">
         <Header />
-        {/* PASAMOS LAS PROPS A MAIN */}
         <Main
           cards={cards}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
+          onEditProfileClick={handleEditProfileClick}
+          onAddPlaceClick={handleAddPlaceClick}
+          onEditAvatarClick={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
+
+        {/* 5. Renderiza los popups aquí basándote en los estados booleanos */}
+        {/* Usarás componentes específicos como EditProfile, NewCard, etc. */}
       </div>
     </CurrentUserContext.Provider>
   );
 };
-
-export default App;
