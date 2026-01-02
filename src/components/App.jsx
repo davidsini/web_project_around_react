@@ -28,16 +28,18 @@ const App = () => {
 
   function handleCardLike(card) {
     const likes = card.likes || [];
-    const isLiked = likes.some((i) => i._id === currentUser._id);
+    const isLiked = likes.some(
+      (like) => like === currentUser._id || like?._id === currentUser._id
+    );
 
     api
-      .changeLikeCardStatus(card._id, !isLiked)
+      .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
       })
-      .catch((error) => console.error(error));
+      .catch(console.error);
   }
 
   function handleCardDelete(card) {

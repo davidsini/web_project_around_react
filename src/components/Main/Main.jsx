@@ -70,19 +70,21 @@ export default function Main({ cards, onCardLike, onCardDelete }) {
         </div>
       </section>
 
-      <section className="cards">
-        <ul className="cards__list">
-          {cards.map((card) => (
-            <Card
-              key={card._id}
-              card={card}
-              onCardClick={handleOpenPopup}
-              onCardLike={onCardLike}
-              onCardDelete={onCardDelete}
-            />
-          ))}
-        </ul>
-      </section>
+      {currentUser._id && (
+        <section className="cards">
+          <ul className="cards__list">
+            {cards.map((card) => (
+              <Card
+                key={card._id}
+                card={card}
+                onCardClick={handleOpenPopup}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
+              />
+            ))}
+          </ul>
+        </section>
+      )}
 
       {popup && (
         <Popup onClose={handleClosePopup} title={popup.title}>
