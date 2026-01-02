@@ -1,21 +1,20 @@
 import { useContext } from "react";
-import { CurrentUserContext } from "../../../../context/CurrentUserContext";
+import { CurrentUserContext } from "../../../../context/CurrentUserContext.js";
 
 export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  const { name, link, owner = {}, likes = [], _id } = card;
+  const { name, link, owner = {}, likes = [] } = card;
 
   const isOwn = owner._id === currentUser._id;
-
   const cardDeleteButtonClassName = `card__delete-button ${
     isOwn ? "card__delete-button_visible" : "card__delete-button_hidden"
   }`;
 
-  const isLiked = likes.some((user) => user._id === currentUser._id);
+  const isLiked = likes.some((i) => i._id === currentUser._id);
 
   const cardLikeButtonClassName = `card__like-button ${
-    isLiked ? "card__like-button--clicked" : ""
+    isLiked ? "card__like-button_is-active" : ""
   }`;
 
   function handleLikeClick() {
@@ -36,7 +35,6 @@ export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
         className={cardDeleteButtonClassName}
         onClick={handleDeleteClick}
         type="button"
-        aria-label="Eliminar"
       />
       <img
         className="card__image"
@@ -52,7 +50,6 @@ export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
             className={cardLikeButtonClassName}
             onClick={handleLikeClick}
           />
-          {/* Mostramos la cantidad de likes reales */}
           <span className="card__like-count">{likes.length}</span>
         </div>
       </div>
