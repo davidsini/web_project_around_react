@@ -8,23 +8,9 @@ import Card from "./components/Card/Card.jsx";
 import api from "../../utils/api.js";
 import { CurrentUserContext } from "../../context/CurrentUserContext.js";
 
-export default function Main() {
-  const [cards, setCards] = useState([]);
+export default function Main({ cards, onCardLike, onCardDelete }) {
+  // props
   const { currentUser } = useContext(CurrentUserContext);
-
-  function handleCardLike(card) {
-    const isLiked = card.isLiked;
-
-    api
-      .changeLikeCardStatus(card._id, isLiked)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === newCard._id ? newCard : c))
-        );
-      })
-      .catch(console.error);
-  }
-
   const [popup, setPopup] = useState(null);
 
   const newCardPopup = {
@@ -50,16 +36,6 @@ export default function Main() {
     setPopup(null);
   };
 
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        console.log("Datos recibidos de cards:", data);
-        setCards(data);
-      })
-      .catch((error) => console.error(error));
-  }, []);
-
   return (
     <section className="content">
       <section className="profile">
@@ -68,8 +44,8 @@ export default function Main() {
             <div className="profile__avatar-wrapper">
               <img
                 className="profile__picture"
-                src="/images/avatar_2.jpeg"
-                alt="Imagen de perfil del usuario"
+                src={currentUser.avatar}
+                alt="Imagen de perfil"
               />
               <div
                 className="profile__avatar-overlay"
@@ -81,18 +57,15 @@ export default function Main() {
                 <img
                   src="/images/edit-button.svg"
                   className="profile__edit-button"
-                  alt="botón de edición"
+                  alt="editar"
                   onClick={() => handleOpenPopup(editProfilePopup)}
                 />
               </div>
               <p className="profile__occupation">{currentUser.about}</p>
             </div>
           </div>
-
           <button
-            aria-label="Add card"
             className="profile__add-button"
-            type="button"
             onClick={() => handleOpenPopup(newCardPopup)}
           />
         </div>
@@ -105,11 +78,13 @@ export default function Main() {
               key={card._id}
               card={card}
               onCardClick={handleOpenPopup}
-              onCardLike={handleCardLike}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           ))}
         </ul>
       </section>
+
       {popup && (
         <Popup onClose={handleClosePopup} title={popup.title}>
           {popup.children}

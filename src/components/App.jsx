@@ -6,7 +6,18 @@ import { CurrentUserContext } from "../context/CurrentUserContext.js";
 import api from "../utils/api.js";
 
 const App = () => {
+  const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((data) => {
+        console.log("Datos recibidos de cards:", data);
+        setCards(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   useEffect(() => {
     api
@@ -15,13 +26,48 @@ const App = () => {
       .catch((error) => console.error(error));
   }, []);
 
+  function handleCardLike(card) {
+    const isLiked = card.isLiked;
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch(console.error);
+  }
+
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
+      })
+      .catch(console.error);
+  }
+
+  const handleUpdateUser = (data) => {
+    api
+      .setUserInfo(data)
+      .then((newData) => {
+        setCurrentUser(newData);
+      })
+      .catch(console.error);
+  };
+
   return (
-    <CurrentUserContext.Provider value={{ currentUser }}>
-      <main className="page__main-container">
+    <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+      <div className="page__content">
         <Header />
-        <Main />
+        {/* PASAMOS LAS PROPS A MAIN */}
+        <Main
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+        />
         <Footer />
-      </main>
+      </div>
     </CurrentUserContext.Provider>
   );
 };
