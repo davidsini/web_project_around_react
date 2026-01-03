@@ -93,6 +93,14 @@
   opacity: 60%;
 }
 
+.card__delete-button_hidden {
+  display: none;
+}
+
+.card__delete-button_visible {
+  display: block;
+}
+
 @media screen and (max-width: 880px) {
   .cards__list {
     grid-template-columns: 1fr 1fr;

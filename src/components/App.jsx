@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import Footer from "./Footer/Footer.jsx";
-import Popup from "./Main/Popup.jsx";
+import Popup from "./Main/components/Popup/Popup.jsx";
 import ImagePopup from "./Main/components/Popup/ImagePopup.jsx";
 import EditProfile from "./form/EditProfile/EditProfile.jsx";
 import NewCard from "./form/NewCard/NewCard.jsx";
@@ -122,35 +122,13 @@ export default function App() {
           onAddPlaceClick={handleAddPlaceClick}
           onEditAvatarClick={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          isEditProfilePopupOpen={isEditProfilePopupOpen}
+          isAddPlacePopupOpen={isAddPlacePopupOpen}
+          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+          selectedCard={selectedCard}
+          onClose={closeAllPopups}
         />
         <Footer />
-
-        {/* Popup editar perfil */}
-        {isEditProfilePopupOpen && (
-          <Popup
-            title="Editar perfil"
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}>
-            <EditProfile />
-          </Popup>
-        )}
-
-        {/* Popup nueva tarjeta */}
-        {isAddPlacePopupOpen && (
-          <Popup title="Nuevo lugar" onClose={closeAllPopups}>
-            <NewCard />
-          </Popup>
-        )}
-        {/* Popup editar aavatar */}
-        {isEditAvatarPopupOpen && (
-          <Popup title="Cambiar foto de perfil" onClose={closeAllPopups}>
-            <EditAvatar />
-          </Popup>
-        )}
-        {/* App.jsx */}
-        {selectedCard && (
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        )}
       </div>
     </CurrentUserContext.Provider>
   );

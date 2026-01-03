@@ -9,11 +9,16 @@
   justify-content: center;
   z-index: 10;
   transition: visibility 0s, opacity 0.3s linear;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: visibility 0s, opacity 0.3s linear;
 }
 
 .popup__opened {
   visibility: visible;
   opacity: 1;
+  pointer-events: auto;
 }
 
 .popup__background {

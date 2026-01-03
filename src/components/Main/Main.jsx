@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import Popup from "./Popup.jsx";
+import Popup from "./components/Popup/Popup.jsx";
 import NewCard from "../form/NewCard/NewCard.jsx";
 import EditProfile from "../form/EditProfile/EditProfile.jsx";
 import EditAvatar from "../form/EditAvatar/EditAvatar.jsx";
 import Card from "./components/Card/Card.jsx";
 import api from "../../utils/api.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import ImagePopup from "./components/Popup/ImagePopUp.jsx";
 
 export default function Main({
   cards,
@@ -16,6 +17,11 @@ export default function Main({
   onAddPlaceClick,
   onEditAvatarClick,
   onCardClick,
+  isEditProfilePopupOpen,
+  isAddPlacePopupOpen,
+  isEditAvatarPopupOpen,
+  selectedCard,
+  onClose,
 }) {
   const { currentUser } = useContext(CurrentUserContext);
 
@@ -63,6 +69,26 @@ export default function Main({
           ))}
         </ul>
       </section>
+
+      <Popup
+        title="Editar perfil"
+        isOpen={isEditProfilePopupOpen}
+        onClose={onClose}>
+        <EditProfile />
+      </Popup>
+
+      <Popup title="Nuevo lugar" isOpen={isAddPlacePopupOpen} onClose={onClose}>
+        <NewCard />
+      </Popup>
+
+      <Popup
+        title="Cambiar foto de perfil"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={onClose}>
+        <EditAvatar />
+      </Popup>
+
+      <ImagePopup card={selectedCard} onClose={onClose} />
     </section>
   );
 }
