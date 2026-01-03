@@ -1,11 +1,10 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import Popup from "./components/Popup/Popup.jsx";
 import NewCard from "../form/NewCard/NewCard.jsx";
 import EditProfile from "../form/EditProfile/EditProfile.jsx";
 import EditAvatar from "../form/EditAvatar/EditAvatar.jsx";
 import Card from "./components/Card/Card.jsx";
-import api from "../../utils/api.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import ImagePopup from "./components/Popup/ImagePopUp.jsx";
 

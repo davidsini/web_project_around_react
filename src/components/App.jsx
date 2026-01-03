@@ -2,11 +2,6 @@ import { useState, useEffect } from "react";
 import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import Footer from "./Footer/Footer.jsx";
-import Popup from "./Main/components/Popup/Popup.jsx";
-import ImagePopup from "./Main/components/Popup/ImagePopup.jsx";
-import EditProfile from "./form/EditProfile/EditProfile.jsx";
-import NewCard from "./form/NewCard/NewCard.jsx";
-import EditAvatar from "./form/EditAvatar/EditAvatar.jsx";
 import api from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
