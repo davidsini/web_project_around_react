@@ -52,7 +52,7 @@
 
 .popup__close {
   position: absolute;
-  top: -40px; /* Lo sube por encima del recuadro */
+  top: -40px;
   right: -40px;
   width: 32px;
   height: 32px;
@@ -150,7 +150,7 @@
 
   .popup__close {
     top: -36px;
-    right: 0; /* En móvil suele ir alineado al borde derecho */
+    right: 0;
     width: 20px;
     height: 20px;
   }
